@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1, "platform": "Cisco",
+    "title": "Ver interfaces",
+    "command": "show ip interface brief",
+    "description": "Muestra un resumen de todas las interfaces del router o switch con su estado y dirección IP."
+  },
+  {
+    "id": 2, "platform": "Cisco",
+    "title": "Ver tabla de ruteo",
+    "command": "show ip route",
+    "description": "Muestra todas las rutas conocidas por el dispositivo y cómo llegar a cada red."
+  },
+  {
+    "id": 3, "platform": "Cisco",
+    "title": "Ver vecinos CDP",
+    "command": "show cdp neighbors detail",
+    "description": "Muestra los dispositivos Cisco directamente conectados y su información detallada."
+  },
+  {
+    "id": 4, "platform": "Cisco",
+    "title": "Guardar configuración",
+    "command": "copy running-config startup-config",
+    "description": "Guarda la configuración actual en la memoria permanente para que no se pierda al reiniciar."
+  },
+  {
+    "id": 5, "platform": "Cisco",
+    "title": "Ver versión del sistema",
+    "command": "show version",
+    "description": "Muestra la versión del IOS, tiempo de encendido, memoria y modelo del dispositivo."
+  },
+  {
+    "id": 6, "platform": "Cisco",
+    "title": "Configurar IP en interfaz",
+    "command": "interface gi0/0\n ip address 192.168.1.1 255.255.255.0\n no shutdown",
+    "description": "Asigna una dirección IP a una interfaz y la activa."
+  },
+  {
+    "id": 7, "platform": "Linux",
+    "title": "Ver interfaces de red",
+    "command": "ip addr show",
+    "description": "Lista todas las interfaces de red con sus direcciones IP asignadas."
+  },
+  {
+    "id": 8, "platform": "Linux",
+    "title": "Ver tabla de rutas",
+    "command": "ip route show",
+    "description": "Muestra la tabla de enrutamiento del sistema Linux."
+  },
+  {
+    "id": 9, "platform": "Linux",
+    "title": "Probar conectividad",
+    "command": "ping -c 4 8.8.8.8",
+    "description": "Envía 4 paquetes ICMP a Google DNS para verificar conectividad a internet."
+  },
+  {
+    "id": 10, "platform": "Linux",
+    "title": "Ver puertos abiertos",
+    "command": "ss -tuln",
+    "description": "Muestra todos los puertos TCP y UDP en escucha en el sistema."
+  },
+  {
+    "id": 11, "platform": "Linux",
+    "title": "Capturar tráfico",
+    "command": "tcpdump -i eth0 -n",
+    "description": "Captura y muestra en tiempo real el tráfico que pasa por la interfaz eth0."
+  },
+  {
+    "id": 12, "platform": "Linux",
+    "title": "Reiniciar servicio de red",
+    "command": "systemctl restart NetworkManager",
+    "description": "Reinicia el gestor de red de Linux para aplicar cambios de configuración."
+  },
+  {
+    "id": 13, "platform": "MikroTik",
+    "title": "Ver interfaces",
+    "command": "/interface print",
+    "description": "Lista todas las interfaces disponibles en el RouterOS con su estado."
+  },
+  {
+    "id": 14, "platform": "MikroTik",
+    "title": "Ver direcciones IP",
+    "command": "/ip address print",
+    "description": "Muestra todas las direcciones IP configuradas en el dispositivo."
+  },
+  {
+    "id": 15, "platform": "MikroTik",
+    "title": "Ver tabla de rutas",
+    "command": "/ip route print",
+    "description": "Muestra la tabla de enrutamiento completa del RouterOS."
+  },
+  {
+    "id": 16, "platform": "MikroTik",
+    "title": "Ver reglas de firewall",
+    "command": "/ip firewall filter print",
+    "description": "Lista todas las reglas de filtrado de firewall configuradas."
+  },
+  {
+    "id": 17, "platform": "Windows",
+    "title": "Ver configuración de red",
+    "command": "ipconfig /all",
+    "description": "Muestra información detallada de todas las interfaces de red: IP, máscara, gateway, DNS."
+  },
+  {
+    "id": 18, "platform": "Windows",
+    "title": "Liberar y renovar IP",
+    "command": "ipconfig /release\nipconfig /renew",
+    "description": "Libera la dirección IP actual obtenida por DHCP y solicita una nueva."
+  },
+  {
+    "id": 19, "platform": "Windows",
+    "title": "Limpiar caché DNS",
+    "command": "ipconfig /flushdns",
+    "description": "Borra el caché de resolución DNS local para forzar nuevas consultas al servidor DNS."
+  },
+  {
+    "id": 20, "platform": "Windows",
+    "title": "Ver puertos activos",
+    "command": "netstat -ano",
+    "description": "Muestra todas las conexiones de red activas con el proceso que las usa."
+  }
+]
