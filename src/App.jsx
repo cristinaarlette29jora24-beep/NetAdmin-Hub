@@ -21,8 +21,10 @@ function App() {
       <Sidebar active={activeModule} onNavigate={setActiveModule} />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Topbar />
-        <main className="flex-1 overflow-y-auto p-6">
-          {renderModule()}
+        <main className="flex-1 overflow-y-auto p-4 md:p-7">
+          <div className="mx-auto w-full max-w-7xl">
+            {renderModule()}
+          </div>
         </main>
       </div>
     </div>

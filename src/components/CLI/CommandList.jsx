@@ -38,7 +38,7 @@ function CommandList() {
   })
 
   return (
-    <div className="max-w-3xl mx-auto flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
       <div>
         <h1 className="text-2xl font-bold mb-1" style={{ color: '#60c0ff' }}>
@@ -49,22 +49,27 @@ function CommandList() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="rounded-2xl p-5 flex flex-col gap-3"
+        style={{
+          background: 'linear-gradient(150deg, rgba(10,23,54,0.78), rgba(33,22,79,0.68))',
+          border: '1px solid rgba(134,158,255,0.36)',
+          backdropFilter: 'blur(8px)'
+        }}>
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Buscar por nombre, comando o descripción..."
-          className="px-4 py-3 rounded-lg text-sm outline-none w-full"
-          style={{ background: '#050d1a', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
+          className="px-4 py-3 rounded-xl text-sm outline-none w-full"
+          style={{ background: 'rgba(4,12,30,0.8)', border: '1px solid rgba(134,158,255,0.36)', color: '#d9e6ff' }}
         />
         <div className="flex gap-2 flex-wrap">
           {platforms.map(p => (
             <button key={p} onClick={() => setPlatform(p)}
               className="px-4 py-1.5 rounded-full text-xs transition-all"
               style={{
-                background: platform === p ? 'rgba(0,120,255,0.2)' : 'transparent',
-                color:      platform === p ? '#60c0ff' : '#3a6080',
-                border:     platform === p ? '1px solid #0055cc' : '1px solid #1e3a5f',
+                background: platform === p ? 'linear-gradient(90deg, rgba(59,130,246,0.26), rgba(124,58,237,0.32))' : 'rgba(4,12,30,0.5)',
+                color:      platform === p ? '#d5e5ff' : '#8aa6d4',
+                border:     platform === p ? '1px solid rgba(134,158,255,0.56)' : '1px solid rgba(125,145,255,0.26)',
               }}>
               {p}
             </button>
@@ -94,8 +99,12 @@ function CommandList() {
         {filtered.map(c => {
           const colors = platformColors[c.platform]
           return (
-            <div key={c.id} className="rounded-xl p-4 flex flex-col gap-3"
-              style={{ background: '#050d1a', border: '1px solid #1e3a5f' }}>
+            <div key={c.id} className="rounded-2xl p-4 flex flex-col gap-3"
+              style={{
+                background: 'linear-gradient(145deg, rgba(8,20,46,0.78), rgba(24,19,66,0.66))',
+                border: '1px solid rgba(125,145,255,0.3)',
+                backdropFilter: 'blur(8px)'
+              }}>
 
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col gap-1">
@@ -104,23 +113,25 @@ function CommandList() {
                       style={{ background: colors.bg, color: colors.color, border: `1px solid ${colors.border}` }}>
                       {c.platform}
                     </span>
-                    <span className="text-sm font-bold" style={{ color: '#c0d8f0' }}>{c.title}</span>
+                    <span className="text-sm font-bold" style={{ color: '#d7e8ff' }}>{c.title}</span>
                   </div>
-                  <p className="text-xs" style={{ color: '#3a6080' }}>{c.description}</p>
+                  <p className="text-xs" style={{ color: '#8aa6d4' }}>{c.description}</p>
                 </div>
                 <button onClick={() => copy(c.id, c.command)}
                   className="shrink-0 px-3 py-1.5 rounded-lg text-xs transition-all"
                   style={{
-                    background: copied === c.id ? 'rgba(0,200,100,0.15)' : 'rgba(0,120,255,0.1)',
-                    color:      copied === c.id ? '#00d090' : '#60c0ff',
-                    border:     copied === c.id ? '1px solid rgba(0,200,100,0.3)' : '1px solid #1e3a5f',
+                    background: copied === c.id
+                      ? 'linear-gradient(90deg, rgba(16,185,129,0.26), rgba(16,185,129,0.18))'
+                      : 'linear-gradient(90deg, rgba(59,130,246,0.24), rgba(124,58,237,0.28))',
+                    color:      copied === c.id ? '#a7f3d0' : '#dbe9ff',
+                    border:     copied === c.id ? '1px solid rgba(52,211,153,0.45)' : '1px solid rgba(134,158,255,0.38)',
                   }}>
                   {copied === c.id ? '✓ Copiado' : 'Copiar'}
                 </button>
               </div>
 
               <pre className="text-xs p-3 rounded-lg overflow-x-auto"
-                style={{ background: '#030a14', color: '#00c8ff', border: '1px solid #0d2040' }}>
+                style={{ background: 'rgba(3,10,24,0.9)', color: '#86e3ff', border: '1px solid rgba(125,145,255,0.22)' }}>
                 {c.command}
               </pre>
             </div>
