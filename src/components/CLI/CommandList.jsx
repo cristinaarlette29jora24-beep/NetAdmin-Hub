@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import commands from '../../data/commands.json'
 
-const platforms = ['Todos', 'Cisco', 'Linux']
+const platforms = ['Todos', 'Linux', 'Windows']
 
 const platformColors = {
   Cisco:    { bg: 'rgba(0,120,255,0.1)',  color: '#60a0ff', border: 'rgba(0,120,255,0.3)'  },
@@ -16,7 +16,7 @@ function CommandList() {
   const [copied,   setCopied]   = useState(null)
   const [copyError, setCopyError] = useState('')
 
-  const cliCommands = commands.filter(c => c.platform === 'Cisco' || c.platform === 'Linux')
+  const cliCommands = commands.filter(c => c.platform === 'Linux' || c.platform === 'Windows')
 
   const copy = async (id, text) => {
     try {
@@ -45,7 +45,7 @@ function CommandList() {
           Biblioteca de Comandos CLI
         </h1>
         <p className="text-sm" style={{ color: '#3a6080' }}>
-          Busca comandos de Cisco y Linux con su explicación y cópialos al portapapeles.
+          Comandos útiles del día a día para Linux y Windows con explicación rápida.
         </p>
       </div>
 

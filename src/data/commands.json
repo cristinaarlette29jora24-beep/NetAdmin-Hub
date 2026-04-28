@@ -1,122 +1,44 @@
 [
-  {
-    "id": 1, "platform": "Cisco",
-    "title": "Ver interfaces",
-    "command": "show ip interface brief",
-    "description": "Muestra un resumen de todas las interfaces del router o switch con su estado y dirección IP."
-  },
-  {
-    "id": 2, "platform": "Cisco",
-    "title": "Ver tabla de ruteo",
-    "command": "show ip route",
-    "description": "Muestra todas las rutas conocidas por el dispositivo y cómo llegar a cada red."
-  },
-  {
-    "id": 3, "platform": "Cisco",
-    "title": "Ver vecinos CDP",
-    "command": "show cdp neighbors detail",
-    "description": "Muestra los dispositivos Cisco directamente conectados y su información detallada."
-  },
-  {
-    "id": 4, "platform": "Cisco",
-    "title": "Guardar configuración",
-    "command": "copy running-config startup-config",
-    "description": "Guarda la configuración actual en la memoria permanente para que no se pierda al reiniciar."
-  },
-  {
-    "id": 5, "platform": "Cisco",
-    "title": "Ver versión del sistema",
-    "command": "show version",
-    "description": "Muestra la versión del IOS, tiempo de encendido, memoria y modelo del dispositivo."
-  },
-  {
-    "id": 6, "platform": "Cisco",
-    "title": "Configurar IP en interfaz",
-    "command": "interface gi0/0\n ip address 192.168.1.1 255.255.255.0\n no shutdown",
-    "description": "Asigna una dirección IP a una interfaz y la activa."
-  },
-  {
-    "id": 7, "platform": "Linux",
-    "title": "Ver interfaces de red",
-    "command": "ip addr show",
-    "description": "Lista todas las interfaces de red con sus direcciones IP asignadas."
-  },
-  {
-    "id": 8, "platform": "Linux",
-    "title": "Ver tabla de rutas",
-    "command": "ip route show",
-    "description": "Muestra la tabla de enrutamiento del sistema Linux."
-  },
-  {
-    "id": 9, "platform": "Linux",
-    "title": "Probar conectividad",
-    "command": "ping -c 4 8.8.8.8",
-    "description": "Envía 4 paquetes ICMP a Google DNS para verificar conectividad a internet."
-  },
-  {
-    "id": 10, "platform": "Linux",
-    "title": "Ver puertos abiertos",
-    "command": "ss -tuln",
-    "description": "Muestra todos los puertos TCP y UDP en escucha en el sistema."
-  },
-  {
-    "id": 11, "platform": "Linux",
-    "title": "Capturar tráfico",
-    "command": "tcpdump -i eth0 -n",
-    "description": "Captura y muestra en tiempo real el tráfico que pasa por la interfaz eth0."
-  },
-  {
-    "id": 12, "platform": "Linux",
-    "title": "Reiniciar servicio de red",
-    "command": "systemctl restart NetworkManager",
-    "description": "Reinicia el gestor de red de Linux para aplicar cambios de configuración."
-  },
-  {
-    "id": 13, "platform": "MikroTik",
-    "title": "Ver interfaces",
-    "command": "/interface print",
-    "description": "Lista todas las interfaces disponibles en el RouterOS con su estado."
-  },
-  {
-    "id": 14, "platform": "MikroTik",
-    "title": "Ver direcciones IP",
-    "command": "/ip address print",
-    "description": "Muestra todas las direcciones IP configuradas en el dispositivo."
-  },
-  {
-    "id": 15, "platform": "MikroTik",
-    "title": "Ver tabla de rutas",
-    "command": "/ip route print",
-    "description": "Muestra la tabla de enrutamiento completa del RouterOS."
-  },
-  {
-    "id": 16, "platform": "MikroTik",
-    "title": "Ver reglas de firewall",
-    "command": "/ip firewall filter print",
-    "description": "Lista todas las reglas de filtrado de firewall configuradas."
-  },
-  {
-    "id": 17, "platform": "Windows",
-    "title": "Ver configuración de red",
-    "command": "ipconfig /all",
-    "description": "Muestra información detallada de todas las interfaces de red: IP, máscara, gateway, DNS."
-  },
-  {
-    "id": 18, "platform": "Windows",
-    "title": "Liberar y renovar IP",
-    "command": "ipconfig /release\nipconfig /renew",
-    "description": "Libera la dirección IP actual obtenida por DHCP y solicita una nueva."
-  },
-  {
-    "id": 19, "platform": "Windows",
-    "title": "Limpiar caché DNS",
-    "command": "ipconfig /flushdns",
-    "description": "Borra el caché de resolución DNS local para forzar nuevas consultas al servidor DNS."
-  },
-  {
-    "id": 20, "platform": "Windows",
-    "title": "Ver puertos activos",
-    "command": "netstat -ano",
-    "description": "Muestra todas las conexiones de red activas con el proceso que las usa."
-  }
+  { "id": 1,  "platform": "Linux",   "title": "IPs e interfaces",                "command": "ip addr show",                               "description": "Muestra interfaces de red, estado y direcciones IP asignadas." },
+  { "id": 2,  "platform": "Linux",   "title": "Tabla de rutas",                  "command": "ip route show",                              "description": "Visualiza las rutas activas del sistema Linux." },
+  { "id": 3,  "platform": "Linux",   "title": "Puertos en escucha",              "command": "ss -tuln",                                   "description": "Lista puertos TCP/UDP abiertos sin resolver nombres." },
+  { "id": 4,  "platform": "Linux",   "title": "Probar internet (ICMP)",          "command": "ping -c 4 8.8.8.8",                          "description": "Verifica conectividad hacia internet enviando 4 paquetes." },
+  { "id": 5,  "platform": "Linux",   "title": "Probar DNS",                       "command": "nslookup google.com",                        "description": "Comprueba si la resolución DNS funciona correctamente." },
+  { "id": 6,  "platform": "Linux",   "title": "Trazar ruta",                      "command": "traceroute 8.8.8.8",                         "description": "Muestra por qué saltos pasa el tráfico hasta el destino." },
+  { "id": 7,  "platform": "Linux",   "title": "Captura rápida en interfaz",       "command": "sudo tcpdump -i eth0 -nn",                   "description": "Captura tráfico en tiempo real sin resolver DNS/puertos." },
+  { "id": 8,  "platform": "Linux",   "title": "Ver ARP/vecinos",                  "command": "ip neigh show",                              "description": "Muestra la tabla ARP con vecinos conocidos." },
+  { "id": 9,  "platform": "Linux",   "title": "Estado de NetworkManager",         "command": "systemctl status NetworkManager",            "description": "Revisa si el servicio de red está activo y saludable." },
+  { "id": 10, "platform": "Linux",   "title": "Reiniciar red",                    "command": "sudo systemctl restart NetworkManager",      "description": "Reinicia el gestor de red para aplicar cambios." },
+  { "id": 11, "platform": "Linux",   "title": "Config DNS temporal",              "command": "echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf", "description": "Establece un DNS temporal para pruebas rápidas." },
+  { "id": 12, "platform": "Linux",   "title": "Ver procesos por red",             "command": "sudo lsof -i -P -n",                         "description": "Relaciona conexiones de red con procesos locales." },
+  { "id": 13, "platform": "Linux",   "title": "Uso de disco",                     "command": "df -h",                                      "description": "Muestra espacio usado/libre en discos en formato legible." },
+  { "id": 14, "platform": "Linux",   "title": "Top de procesos",                  "command": "top",                                        "description": "Visualiza consumo de CPU, RAM y procesos activos." },
+  { "id": 15, "platform": "Linux",   "title": "Servicios activos",                "command": "systemctl --type=service --state=running",  "description": "Lista servicios en ejecución en el sistema." },
+  { "id": 16, "platform": "Linux",   "title": "Revisar logs recientes",           "command": "journalctl -xe --no-pager | tail -n 80",     "description": "Muestra errores recientes útiles para troubleshooting." },
+  { "id": 17, "platform": "Linux",   "title": "Escaneo local rápido",             "command": "sudo nmap -sV 192.168.1.0/24",               "description": "Descubre hosts y servicios activos en la red local." },
+  { "id": 18, "platform": "Linux",   "title": "Firewall UFW estado",              "command": "sudo ufw status verbose",                    "description": "Verifica reglas activas y estado del firewall UFW." },
+  { "id": 19, "platform": "Linux",   "title": "Permitir puerto en UFW",           "command": "sudo ufw allow 22/tcp",                      "description": "Abre un puerto TCP en el firewall UFW." },
+  { "id": 20, "platform": "Linux",   "title": "Actualizar paquetes",              "command": "sudo apt update && sudo apt upgrade -y",     "description": "Actualiza repositorios y paquetes instalados (Debian/Ubuntu)." },
+  { "id": 21, "platform": "Linux",   "title": "Ver info del sistema",             "command": "uname -a",                                   "description": "Muestra kernel y arquitectura del sistema operativo." },
+  { "id": 22, "platform": "Linux",   "title": "Buscar texto en logs",             "command": "grep -Ri 'error' /var/log | head",           "description": "Busca rápidamente errores en archivos de log." },
+  { "id": 23, "platform": "Windows", "title": "Detalles IP completos",            "command": "ipconfig /all",                              "description": "Muestra adaptadores, IP, máscara, gateway y DNS." },
+  { "id": 24, "platform": "Windows", "title": "Renovar IP DHCP",                  "command": "ipconfig /release && ipconfig /renew",       "description": "Libera y solicita una nueva IP al servidor DHCP." },
+  { "id": 25, "platform": "Windows", "title": "Limpiar caché DNS",                "command": "ipconfig /flushdns",                         "description": "Borra caché DNS local para resolver nombres desde cero." },
+  { "id": 26, "platform": "Windows", "title": "Comprobar conectividad",           "command": "ping 8.8.8.8",                               "description": "Prueba alcance de red hacia internet por ICMP." },
+  { "id": 27, "platform": "Windows", "title": "Trazar ruta",                      "command": "tracert 8.8.8.8",                            "description": "Muestra saltos de red hasta el destino." },
+  { "id": 28, "platform": "Windows", "title": "Resolver DNS",                     "command": "nslookup google.com",                        "description": "Consulta resolución de nombres en el DNS configurado." },
+  { "id": 29, "platform": "Windows", "title": "Ver conexiones y puertos",         "command": "netstat -ano",                               "description": "Lista conexiones activas, puertos y PID del proceso." },
+  { "id": 30, "platform": "Windows", "title": "Rutas del host",                   "command": "route print",                                "description": "Muestra tabla de rutas del equipo Windows." },
+  { "id": 31, "platform": "Windows", "title": "Tabla ARP",                        "command": "arp -a",                                     "description": "Consulta vecinos IP/MAC aprendidos por ARP." },
+  { "id": 32, "platform": "Windows", "title": "Estado de firewall",               "command": "netsh advfirewall show allprofiles",         "description": "Visualiza estado de firewall por perfil de red." },
+  { "id": 33, "platform": "Windows", "title": "Abrir puerto firewall",            "command": "netsh advfirewall firewall add rule name=\"Permitir 3389\" dir=in action=allow protocol=TCP localport=3389", "description": "Crea regla de entrada para abrir un puerto TCP." },
+  { "id": 34, "platform": "Windows", "title": "Estado interfaces",                "command": "netsh interface ipv4 show interfaces",       "description": "Muestra interfaces IPv4 con su estado y métrica." },
+  { "id": 35, "platform": "Windows", "title": "Procesos con consumo",             "command": "tasklist",                                   "description": "Lista procesos en ejecución con memoria utilizada." },
+  { "id": 36, "platform": "Windows", "title": "Matar proceso por PID",            "command": "taskkill /PID 1234 /F",                      "description": "Finaliza de forma forzada un proceso específico." },
+  { "id": 37, "platform": "Windows", "title": "Servicios de red",                 "command": "Get-Service | Where-Object { $_.Status -eq 'Running' }", "description": "PowerShell para listar servicios en estado Running." },
+  { "id": 38, "platform": "Windows", "title": "Prueba de puerto TCP",             "command": "Test-NetConnection 8.8.8.8 -Port 53",        "description": "Verifica si el puerto remoto está accesible." },
+  { "id": 39, "platform": "Windows", "title": "Info del sistema",                 "command": "systeminfo",                                 "description": "Muestra versión de SO, parches y datos del hardware." },
+  { "id": 40, "platform": "Windows", "title": "Escaneo rápido red local",         "command": "for /L %i in (1,1,254) do @ping -n 1 -w 30 192.168.1.%i | find \"TTL=\"", "description": "Detecta hosts activos en una subred /24 rápidamente." },
+  { "id": 41, "platform": "Windows", "title": "Ver políticas IP",                 "command": "Get-NetIPConfiguration",                     "description": "PowerShell con configuración IP de cada adaptador." },
+  { "id": 42, "platform": "Windows", "title": "Reiniciar adaptador de red",       "command": "Disable-NetAdapter -Name \"Ethernet\" -Confirm:$false; Enable-NetAdapter -Name \"Ethernet\" -Confirm:$false", "description": "Deshabilita/habilita un adaptador para recuperar conectividad." }
 ]

@@ -9,11 +9,12 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #d7e8ff;
   background:
-    linear-gradient(130deg, rgba(22, 45, 102, 0.88), rgba(52, 31, 110, 0.9)),
-    radial-gradient(circle at 15% 20%, rgba(46, 91, 255, 0.35), transparent 45%),
-    radial-gradient(circle at 82% 12%, rgba(124, 58, 237, 0.32), transparent 42%),
-    radial-gradient(circle at 60% 80%, rgba(0, 95, 210, 0.42), transparent 38%),
+    linear-gradient(135deg, rgba(2, 10, 35, 0.78), rgba(12, 22, 56, 0.82)),
+    url("https://static.vecteezy.com/system/resources/previews/013/752/401/large_2x/network-technology-background-future-technological-processes-represent-data-points-network-connections-and-digital-visualizations-free-vector.jpg"),
     #030a18;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
   position: relative;
@@ -24,11 +25,9 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.34;
+  opacity: 0.45;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='%2360a5fa' stroke-opacity='0.35' stroke-width='1.2'%3E%3Cpath d='M30 30h220v220H30z'/%3E%3Cpath d='M30 140h220M140 30v220'/%3E%3Ccircle cx='30' cy='30' r='3' fill='%237c3aed' fill-opacity='0.8'/%3E%3Ccircle cx='250' cy='30' r='3' fill='%237c3aed' fill-opacity='0.8'/%3E%3Ccircle cx='30' cy='250' r='3' fill='%237c3aed' fill-opacity='0.8'/%3E%3Ccircle cx='250' cy='250' r='3' fill='%237c3aed' fill-opacity='0.8'/%3E%3Ccircle cx='140' cy='140' r='4.2' fill='%2300e5ff' fill-opacity='0.9'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 320px 320px;
-  background-repeat: repeat;
+    linear-gradient(130deg, rgba(37, 99, 235, 0.26), rgba(124, 58, 237, 0.28));
 }
 
 #root {
