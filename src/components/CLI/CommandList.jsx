@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import commands from '../../data/commands.json'
 
-const platforms = ['Todos', 'Cisco', 'Linux', 'MikroTik', 'Windows']
+const platforms = ['Todos', 'Cisco', 'Linux']
 
 const platformColors = {
   Cisco:    { bg: 'rgba(0,120,255,0.1)',  color: '#60a0ff', border: 'rgba(0,120,255,0.3)'  },
@@ -14,14 +14,22 @@ function CommandList() {
   const [search,   setSearch]   = useState('')
   const [platform, setPlatform] = useState('Todos')
   const [copied,   setCopied]   = useState(null)
+  const [copyError, setCopyError] = useState('')
 
-  const copy = (id, text) => {
-    navigator.clipboard.writeText(text)
-    setCopied(id)
-    setTimeout(() => setCopied(null), 2000)
+  const cliCommands = commands.filter(c => c.platform === 'Cisco' || c.platform === 'Linux')
+
+  const copy = async (id, text) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(id)
+      setCopyError('')
+      setTimeout(() => setCopied(null), 2000)
+    } catch {
+      setCopyError('No se pudo copiar automáticamente. Revisa permisos del navegador.')
+    }
   }
 
-  const filtered = commands.filter(c => {
+  const filtered = cliCommands.filter(c => {
     const matchPlatform = platform === 'Todos' || c.platform === platform
     const matchSearch   = c.title.toLowerCase().includes(search.toLowerCase()) ||
                           c.command.toLowerCase().includes(search.toLowerCase()) ||
@@ -37,7 +45,7 @@ function CommandList() {
           Biblioteca de Comandos CLI
         </h1>
         <p className="text-sm" style={{ color: '#3a6080' }}>
-          Busca y copia comandos para Cisco, Linux, MikroTik y Windows Server.
+          Busca comandos de Cisco y Linux con su explicación y cópialos al portapapeles.
         </p>
       </div>
 
@@ -45,7 +53,7 @@ function CommandList() {
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Buscar comandos..."
+          placeholder="Buscar por nombre, comando o descripción..."
           className="px-4 py-3 rounded-lg text-sm outline-none w-full"
           style={{ background: '#050d1a', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
         />
@@ -69,6 +77,20 @@ function CommandList() {
       </div>
 
       <div className="flex flex-col gap-3">
+        {copyError && (
+          <p className="text-sm px-3 py-2 rounded-lg"
+            style={{ background: 'rgba(255,60,40,0.1)', color: '#ff6040', border: '1px solid rgba(255,60,40,0.2)' }}>
+            {copyError}
+          </p>
+        )}
+
+        {filtered.length === 0 && (
+          <div className="rounded-xl p-4 text-sm"
+            style={{ background: '#050d1a', border: '1px solid #1e3a5f', color: '#4a7090' }}>
+            No se encontraron comandos para tu búsqueda/filtro actual.
+          </div>
+        )}
+
         {filtered.map(c => {
           const colors = platformColors[c.platform]
           return (

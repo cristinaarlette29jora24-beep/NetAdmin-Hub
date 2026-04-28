@@ -36,10 +36,10 @@ function isValidIP(ip) {
 
 function ResultRow({ label, value }) {
   return (
-    <div className="flex justify-between items-center py-3 px-4"
-      style={{ borderBottom: '1px solid #0d2040' }}>
-      <span className="text-sm" style={{ color: '#4a7090' }}>{label}</span>
-      <span className="text-sm font-mono font-bold" style={{ color: '#60c0ff' }}>{value}</span>
+    <div className="flex justify-between items-center py-3 px-4 rounded-lg"
+      style={{ background: 'rgba(6,18,42,0.72)', border: '1px solid rgba(96,165,250,0.2)' }}>
+      <span className="text-sm" style={{ color: '#88a8d8' }}>{label}</span>
+      <span className="text-sm font-mono font-bold" style={{ color: '#b9c8ff' }}>{value}</span>
     </div>
   )
 }
@@ -76,43 +76,52 @@ function SubnetCalc() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto flex flex-col gap-8">
 
       <div>
-        <h1 className="text-2xl font-bold mb-1" style={{ color: '#60c0ff' }}>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#c4b5fd' }}>
           Calculadora de Subredes IP
         </h1>
-        <p className="text-sm" style={{ color: '#3a6080' }}>
+        <p className="text-base" style={{ color: '#b1c6ea' }}>
           Ingresa una dirección IP y un prefijo para obtener todos los datos de la subred.
         </p>
       </div>
 
-      <div className="rounded-xl p-5 flex flex-col gap-4"
-        style={{ background: '#050d1a', border: '1px solid #1e3a5f' }}>
+      <div className="rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
+        style={{
+          background: 'linear-gradient(155deg, rgba(16, 35, 88, 0.72), rgba(52, 30, 115, 0.66))',
+          border: '1px solid rgba(167,139,250,0.45)',
+          backdropFilter: 'blur(8px)'
+        }}>
 
         <div className="flex flex-col gap-2">
-          <label className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>
+          <label className="text-xs uppercase tracking-widest" style={{ color: '#c7d7ff' }}>
             Dirección IP
           </label>
           <input
             value={ip}
             onChange={e => setIp(e.target.value)}
             placeholder="192.168.1.0"
-            className="px-4 py-3 rounded-lg text-sm outline-none w-full"
-            style={{ background: '#0a1628', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
+            className="px-4 py-3 rounded-xl text-base outline-none w-full"
+            style={{
+              background: 'rgba(2, 12, 34, 0.85)',
+              border: '1px solid rgba(129,140,248,0.45)',
+              color: '#dbe7ff'
+            }}
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>
+          <label className="text-xs uppercase tracking-widest" style={{ color: '#c7d7ff' }}>
             Prefijo: /{prefix}
           </label>
           <input
             type="range" min="1" max="32" value={prefix}
             onChange={e => setPrefix(e.target.value)}
-            className="w-full accent-blue-500"
+            className="w-full"
+            style={{ accentColor: '#8b5cf6' }}
           />
-          <div className="flex justify-between text-xs" style={{ color: '#1e3a5f' }}>
+          <div className="flex justify-between text-xs" style={{ color: '#93a9d3' }}>
             <span>/1</span><span>/8</span><span>/16</span><span>/24</span><span>/32</span>
           </div>
         </div>
@@ -125,17 +134,24 @@ function SubnetCalc() {
         )}
 
         <button onClick={calculate}
-          className="py-3 rounded-lg font-bold text-sm transition-all"
-          style={{ background: 'rgba(0,120,255,0.2)', color: '#60c0ff', border: '1px solid #0055cc' }}>
+          className="py-3 rounded-xl font-bold text-base transition-all"
+          style={{
+            background: 'linear-gradient(90deg, rgba(59,130,246,0.42), rgba(124,58,237,0.52))',
+            color: '#e7ecff',
+            border: '1px solid rgba(196,181,253,0.6)'
+          }}>
           Calcular subred
         </button>
       </div>
 
       {result && (
-        <div className="rounded-xl overflow-hidden"
-          style={{ background: '#050d1a', border: '1px solid #1e3a5f' }}>
-          <div className="px-4 py-3" style={{ borderBottom: '1px solid #1e3a5f', background: '#030a14' }}>
-            <span className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>Resultados</span>
+        <div className="rounded-2xl p-5 flex flex-col gap-3"
+          style={{
+            background: 'linear-gradient(155deg, rgba(7, 20, 48, 0.78), rgba(32, 28, 86, 0.7))',
+            border: '1px solid rgba(96,165,250,0.35)'
+          }}>
+          <div className="pb-1">
+            <span className="text-xs uppercase tracking-widest" style={{ color: '#8fb2f0' }}>Resultados</span>
           </div>
           <ResultRow label="Notación CIDR"         value={result.cidr} />
           <ResultRow label="Máscara de subred"      value={result.mask} />
@@ -147,29 +163,33 @@ function SubnetCalc() {
         </div>
       )}
 
-      <div className="rounded-xl p-5 flex flex-col gap-4"
-        style={{ background: '#050d1a', border: '1px solid #1e3a5f' }}>
-        <div className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>
+      <div className="rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
+        style={{
+          background: 'linear-gradient(155deg, rgba(16, 35, 88, 0.72), rgba(52, 30, 115, 0.66))',
+          border: '1px solid rgba(167,139,250,0.45)',
+          backdropFilter: 'blur(8px)'
+        }}>
+        <div className="text-xs uppercase tracking-widest" style={{ color: '#c7d7ff' }}>
           Conversor de bases numéricas
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {[
             { label: 'Decimal',     value: decVal, onChange: convertDec,  placeholder: 'Ej: 255' },
             { label: 'Binario',     value: binVal, onChange: null,         placeholder: 'Resultado' },
             { label: 'Hexadecimal', value: hexVal, onChange: null,         placeholder: 'Resultado' },
           ].map(f => (
-            <div key={f.label} className="flex items-center gap-3">
-              <span className="text-xs w-24 text-right" style={{ color: '#3a6080' }}>{f.label}</span>
+            <div key={f.label} className="grid grid-cols-1 md:grid-cols-[130px_1fr] items-center gap-2 md:gap-4">
+              <span className="text-xs md:text-right uppercase tracking-wider" style={{ color: '#c7d7ff' }}>{f.label}</span>
               <input
                 value={f.value}
                 onChange={f.onChange ? e => f.onChange(e.target.value) : undefined}
                 readOnly={!f.onChange}
                 placeholder={f.placeholder}
-                className="flex-1 px-3 py-2 rounded-lg text-sm font-mono outline-none"
+                className="w-full px-4 py-3 rounded-xl text-sm md:text-base font-mono outline-none"
                 style={{
-                  background: f.onChange ? '#0a1628' : '#030a14',
-                  border: '1px solid #1e3a5f',
-                  color: f.onChange ? '#c0d8f0' : '#60c0ff'
+                  background: f.onChange ? 'rgba(2,12,34,0.85)' : 'rgba(6,18,42,0.88)',
+                  border: '1px solid rgba(129,140,248,0.45)',
+                  color: f.onChange ? '#dbe7ff' : '#b9c8ff'
                 }}
               />
             </div>
