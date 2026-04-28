@@ -7,9 +7,11 @@ NetAdmin Hub es una plataforma web sencilla y visual para apoyar tareas de admin
 - Calcular subredes IP (red, mascara, rango utilizable y broadcast).
 - Convertir valores numericos entre decimal, binario y hexadecimal.
 - Buscar comandos utiles de Linux y Windows para tareas del dia a dia.
+- Filtrar comandos por categoria (DNS, WIFI, MONIT, LOGS, PUERTO, REMOTO, etc.).
 - Copiar comandos al portapapeles con un clic.
 - Usar un chat simulador tecnico para recibir orientacion practica de troubleshooting.
 - Cambiar entre modo claro y oscuro con el boton del encabezado.
+- Navegar en movil con menu hamburguesa y panel lateral adaptable.
 
 ## Como usar la aplicacion
 
@@ -24,7 +26,7 @@ NetAdmin Hub es una plataforma web sencilla y visual para apoyar tareas de admin
 ## Modos de visualizacion
 
 - Usa el boton `Modo claro` / `Modo oscuro` en la parte superior.
-- La preferencia se guarda automaticamente para la siguiente sesion.
+- El cambio se aplica al instante para toda la interfaz.
 
 ## Ejemplos rapidos
 
@@ -39,6 +41,7 @@ NetAdmin Hub es una plataforma web sencilla y visual para apoyar tareas de admin
 - Ve a `Comandos CLI`.
 - Escribe una palabra clave como `dns`, `ip`, `firewall`, `ping`.
 - Filtra por `Linux` o `Windows`.
+- Filtra por categoria con los chips visuales (por ejemplo `DNS` o `WIFI`).
 - Pulsa `Copiar` y pega el comando en tu terminal.
 
 ### 3) Pedir ayuda en el chat
@@ -59,3 +62,13 @@ Si algo no se ve bien o no responde como esperas:
 - recarga la pagina (`Ctrl + F5`),
 - reinicia el servidor de desarrollo,
 - verifica que estas usando una version actual del navegador.
+
+## Despliegue web (URL publica)
+
+Esta aplicacion puede publicarse en Vercel para obtener una URL del tipo:
+
+- `https://tu-proyecto.vercel.app`
+
+Si quieres dominio propio:
+
+- `https://netadminhub.com` (o el que elijas)

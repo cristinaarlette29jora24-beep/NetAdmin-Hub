@@ -45,6 +45,7 @@ NetAdmin Hub es una aplicacion web enfocada en productividad para administracion
 - Catalogo de comandos Linux y Windows.
 - Busqueda por titulo, descripcion o texto del comando.
 - Filtro por plataforma.
+- Filtro por categoria mediante chips visuales generados desde etiquetas en titulos (`[DNS]`, `[WIFI]`, `[LOGS]`, etc.).
 - Copia al portapapeles con feedback visual.
 
 ### 3.5 Chat tecnico simulado
@@ -62,7 +63,12 @@ NetAdmin Hub es una aplicacion web enfocada en productividad para administracion
 
 - UI estilo dashboard profesional.
 - Fondo tecnologico con capa de degradado.
-- Cambio de tema claro/oscuro con persistencia en `localStorage`.
+- Cambio de tema claro/oscuro con switch en topbar.
+- Responsive completo:
+  - sidebar oculto en movil con menu hamburguesa,
+  - grid flexible en calculadora/resultados/conversor,
+  - tipografia y tarjetas adaptadas por breakpoint.
+- Footer responsive con copyright centrado.
 
 ## 4. Arquitectura y estructura
 
@@ -119,6 +125,40 @@ Preview local de build:
 ```bash
 npm run preview
 ```
+
+## 6.1 Despliegue en Vercel
+
+### Requisitos
+
+- Cuenta en Vercel.
+- Proyecto subido a GitHub/GitLab/Bitbucket (recomendado).
+
+### Metodo recomendado (dashboard Vercel)
+
+1. Entrar en [Vercel](https://vercel.com).
+2. `Add New Project`.
+3. Importar el repositorio `netadmin-hub`.
+4. Framework detectado: `Vite`.
+5. Build command: `npm run build`.
+6. Output directory: `dist`.
+7. Deploy.
+
+### Metodo CLI
+
+```bash
+npx vercel
+npx vercel --prod
+```
+
+> Nota: si aparece error de token, ejecutar `npx vercel login` y repetir.
+
+## 6.2 Dominio personalizado
+
+1. En Vercel: `Project > Settings > Domains`.
+2. Anadir dominio (ejemplo: `netadminhub.com` o `app.netadminhub.com`).
+3. Copiar registros DNS sugeridos por Vercel (`A`, `CNAME` o `TXT` segun caso).
+4. Configurarlos en el proveedor de dominio.
+5. Esperar propagacion DNS y validar certificado SSL activo.
 
 ## 7. Calidad y buenas practicas
 
