@@ -165,7 +165,7 @@ function AIChat() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col gap-4 h-full">
+    <div className="max-w-2xl mx-auto flex flex-col gap-4 h-full fade-in-up">
 
       <div>
         <h1 className="text-2xl font-bold mb-1" style={{ color: '#60c0ff' }}>
@@ -207,7 +207,7 @@ function AIChat() {
         <div ref={bottomRef} />
       </div>
 
-      <div className="flex gap-2 pb-2">
+      <div className="pro-card rounded-xl flex gap-2 p-2 pb-2">
         <textarea
           value={input}
           onChange={e => setInput(e.target.value)}
@@ -215,7 +215,7 @@ function AIChat() {
           placeholder="Escribe tu pregunta sobre redes... (Enter para enviar)"
           rows={2}
           className="flex-1 px-4 py-3 rounded-xl text-sm outline-none resize-none"
-          style={{ background: '#050d1a', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
+          style={{ background: 'var(--surface-strong)', border: '1px solid var(--border-soft)', color: 'var(--text-primary)' }}
         />
         <button onClick={send} disabled={loading}
           className="px-5 py-3 rounded-xl text-sm font-bold transition-all self-end"

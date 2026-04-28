@@ -118,7 +118,7 @@ function IPSubnetCalculator() {
   }
 
   return (
-    <section className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+    <section className="mx-auto flex w-full max-w-3xl flex-col gap-5 fade-in-up">
       <div>
         <h1 className="text-2xl font-bold" style={{ color: '#60c0ff' }}>
           Calculadora de Subredes (IP + Máscara)
@@ -130,8 +130,7 @@ function IPSubnetCalculator() {
 
       <form
         onSubmit={handleCalculate}
-        className="rounded-xl p-5"
-        style={{ background: '#050d1a', border: '1px solid #1e3a5f' }}
+        className="pro-card rounded-xl p-5"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <label className="flex flex-col gap-2">

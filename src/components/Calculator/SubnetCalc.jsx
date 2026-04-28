@@ -76,7 +76,7 @@ function SubnetCalc() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col gap-8">
+    <div className="max-w-5xl mx-auto flex flex-col gap-8 fade-in-up">
 
       <div>
         <h1 className="text-3xl font-bold mb-2" style={{ color: '#c4b5fd' }}>
@@ -87,7 +87,7 @@ function SubnetCalc() {
         </p>
       </div>
 
-      <div className="rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
+      <div className="pro-card rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
         style={{
           background: 'linear-gradient(155deg, rgba(16, 35, 88, 0.72), rgba(52, 30, 115, 0.66))',
           border: '1px solid rgba(167,139,250,0.45)',
@@ -163,7 +163,7 @@ function SubnetCalc() {
         </div>
       )}
 
-      <div className="rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
+      <div className="pro-card rounded-2xl p-7 flex flex-col gap-5 shadow-2xl"
         style={{
           background: 'linear-gradient(155deg, rgba(16, 35, 88, 0.72), rgba(52, 30, 115, 0.66))',
           border: '1px solid rgba(167,139,250,0.45)',

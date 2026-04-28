@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from './components/Layout/Sidebar'
 import Topbar from './components/Layout/Topbar'
 import SubnetCalc from './components/Calculator/SubnetCalc'
@@ -8,6 +8,11 @@ import AIChat from './components/AI/AIChat'
 
 function App() {
   const [activeModule, setActiveModule] = useState('calculator')
+  const [theme, setTheme] = useState('dark')
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   const renderModule = () => {
     if (activeModule === 'calculator') return <SubnetCalc />
@@ -20,9 +25,9 @@ function App() {
     <div className="flex h-screen overflow-hidden">
       <Sidebar active={activeModule} onNavigate={setActiveModule} />
       <div className="flex flex-col flex-1 overflow-hidden">
-        <Topbar />
+        <Topbar theme={theme} onToggleTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
         <main className="flex-1 overflow-y-auto p-4 md:p-7">
-          <div className="mx-auto w-full max-w-7xl">
+          <div className="mx-auto w-full max-w-7xl fade-in-up">
             {renderModule()}
           </div>
         </main>

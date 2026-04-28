@@ -38,38 +38,33 @@ function CommandList() {
   })
 
   return (
-    <div className="max-w-5xl mx-auto flex flex-col gap-6">
+    <div className="max-w-5xl mx-auto flex flex-col gap-6 fade-in-up">
 
       <div>
-        <h1 className="text-2xl font-bold mb-1" style={{ color: '#60c0ff' }}>
+        <h1 className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
           Biblioteca de Comandos CLI
         </h1>
-        <p className="text-sm" style={{ color: '#3a6080' }}>
+        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Comandos útiles del día a día para Linux y Windows con explicación rápida.
         </p>
       </div>
 
-      <div className="rounded-2xl p-5 flex flex-col gap-3"
-        style={{
-          background: 'linear-gradient(150deg, rgba(10,23,54,0.78), rgba(33,22,79,0.68))',
-          border: '1px solid rgba(134,158,255,0.36)',
-          backdropFilter: 'blur(8px)'
-        }}>
+      <div className="pro-card rounded-2xl p-5 flex flex-col gap-3">
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Buscar por nombre, comando o descripción..."
           className="px-4 py-3 rounded-xl text-sm outline-none w-full"
-          style={{ background: 'rgba(4,12,30,0.8)', border: '1px solid rgba(134,158,255,0.36)', color: '#d9e6ff' }}
+          style={{ background: 'var(--surface-strong)', border: '1px solid var(--border-soft)', color: 'var(--text-primary)' }}
         />
         <div className="flex gap-2 flex-wrap">
           {platforms.map(p => (
             <button key={p} onClick={() => setPlatform(p)}
-              className="px-4 py-1.5 rounded-full text-xs transition-all"
+              className="pro-interactive px-4 py-1.5 rounded-full text-xs"
               style={{
                 background: platform === p ? 'linear-gradient(90deg, rgba(59,130,246,0.26), rgba(124,58,237,0.32))' : 'rgba(4,12,30,0.5)',
-                color:      platform === p ? '#d5e5ff' : '#8aa6d4',
-                border:     platform === p ? '1px solid rgba(134,158,255,0.56)' : '1px solid rgba(125,145,255,0.26)',
+                color:      platform === p ? 'var(--text-primary)' : 'var(--text-secondary)',
+                border:     platform === p ? '1px solid var(--border-strong)' : '1px solid var(--border-soft)',
               }}>
               {p}
             </button>
@@ -77,7 +72,7 @@ function CommandList() {
         </div>
       </div>
 
-      <div className="text-xs" style={{ color: '#2a5070' }}>
+      <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
         {filtered.length} comando{filtered.length !== 1 ? 's' : ''} encontrado{filtered.length !== 1 ? 's' : ''}
       </div>
 
@@ -99,12 +94,7 @@ function CommandList() {
         {filtered.map(c => {
           const colors = platformColors[c.platform]
           return (
-            <div key={c.id} className="rounded-2xl p-4 flex flex-col gap-3"
-              style={{
-                background: 'linear-gradient(145deg, rgba(8,20,46,0.78), rgba(24,19,66,0.66))',
-                border: '1px solid rgba(125,145,255,0.3)',
-                backdropFilter: 'blur(8px)'
-              }}>
+            <div key={c.id} className="pro-card pro-interactive rounded-2xl p-4 flex flex-col gap-3">
 
               <div className="flex items-start justify-between gap-3">
                 <div className="flex flex-col gap-1">
@@ -113,12 +103,12 @@ function CommandList() {
                       style={{ background: colors.bg, color: colors.color, border: `1px solid ${colors.border}` }}>
                       {c.platform}
                     </span>
-                    <span className="text-sm font-bold" style={{ color: '#d7e8ff' }}>{c.title}</span>
+                    <span className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{c.title}</span>
                   </div>
-                  <p className="text-xs" style={{ color: '#8aa6d4' }}>{c.description}</p>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{c.description}</p>
                 </div>
                 <button onClick={() => copy(c.id, c.command)}
-                  className="shrink-0 px-3 py-1.5 rounded-lg text-xs transition-all"
+                  className="pro-interactive shrink-0 px-3 py-1.5 rounded-lg text-xs"
                   style={{
                     background: copied === c.id
                       ? 'linear-gradient(90deg, rgba(16,185,129,0.26), rgba(16,185,129,0.18))'
