@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from './components/Layout/Sidebar'
 import Topbar from './components/Layout/Topbar'
 import SubnetCalc from './components/Calculator/SubnetCalc'
+import IPSubnetCalculator from './components/Calculator/IPSubnetCalculator'
 import CommandList from './components/CLI/CommandList'
 import AIChat from './components/AI/AIChat'
 
@@ -10,6 +11,7 @@ function App() {
 
   const renderModule = () => {
     if (activeModule === 'calculator') return <SubnetCalc />
+    if (activeModule === 'subnet')     return <IPSubnetCalculator />
     if (activeModule === 'cli')        return <CommandList />
     if (activeModule === 'ai')         return <AIChat />
   }

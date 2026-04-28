@@ -1,5 +1,6 @@
 const modules = [
   { id: 'calculator', icon: '⊞', label: 'Calculadora IP' },
+  { id: 'subnet',     icon: '⌗', label: 'Subred IP'       },
   { id: 'cli',        icon: '▤', label: 'Comandos CLI'   },
   { id: 'ai',         icon: '✦', label: 'Chat con IA'    },
 ]
