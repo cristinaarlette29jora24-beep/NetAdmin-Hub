@@ -8,10 +8,15 @@ import AIChat from './components/AI/AIChat'
 
 function App() {
   const [activeModule, setActiveModule] = useState('calculator')
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem('nah-theme')
+    if (stored === 'dark' || stored === 'light') return stored
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  })
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('nah-theme', theme)
   }, [theme])
 
   const renderModule = () => {

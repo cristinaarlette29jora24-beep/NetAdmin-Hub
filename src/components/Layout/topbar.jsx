@@ -17,7 +17,7 @@ function Topbar({ theme, onToggleTheme }) {
             color: 'var(--text-primary)',
           }}
         >
-          {theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+          {theme === 'dark' ? '☀ Modo claro' : '🌙 Modo oscuro'}
         </button>
 
         <div className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-full"
