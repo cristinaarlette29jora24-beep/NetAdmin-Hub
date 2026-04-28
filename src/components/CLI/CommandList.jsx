@@ -13,10 +13,15 @@ const platformColors = {
 function CommandList() {
   const [search,   setSearch]   = useState('')
   const [platform, setPlatform] = useState('Todos')
+  const [category, setCategory] = useState('Todas')
   const [copied,   setCopied]   = useState(null)
   const [copyError, setCopyError] = useState('')
 
   const cliCommands = commands.filter(c => c.platform === 'Linux' || c.platform === 'Windows')
+  const categories = ['Todas', ...Array.from(new Set(cliCommands.map((c) => {
+    const match = c.title.match(/^\[(.*?)\]/)
+    return match ? match[1] : 'GENERAL'
+  }))).sort()]
 
   const copy = async (id, text) => {
     try {
@@ -31,10 +36,12 @@ function CommandList() {
 
   const filtered = cliCommands.filter(c => {
     const matchPlatform = platform === 'Todos' || c.platform === platform
+    const commandCategory = (c.title.match(/^\[(.*?)\]/)?.[1]) || 'GENERAL'
+    const matchCategory = category === 'Todas' || commandCategory === category
     const matchSearch   = c.title.toLowerCase().includes(search.toLowerCase()) ||
                           c.command.toLowerCase().includes(search.toLowerCase()) ||
                           c.description.toLowerCase().includes(search.toLowerCase())
-    return matchPlatform && matchSearch
+    return matchPlatform && matchCategory && matchSearch
   })
 
   return (
@@ -45,7 +52,7 @@ function CommandList() {
           Biblioteca de Comandos CLI
         </h1>
         <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-          Comandos útiles del día a día para Linux y Windows con explicación rápida.
+          Comandos útiles del día a día para Linux y Windows con explicación rápida y etiquetas por categoría.
         </p>
       </div>
 
@@ -53,7 +60,7 @@ function CommandList() {
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Buscar por nombre, comando o descripción..."
+          placeholder="Buscar por nombre, comando, etiqueta ([DNS], [WIFI]) o descripción..."
           className="px-4 py-3 rounded-xl text-sm outline-none w-full"
           style={{ background: 'var(--surface-strong)', border: '1px solid var(--border-soft)', color: 'var(--text-primary)' }}
         />
@@ -67,6 +74,22 @@ function CommandList() {
                 border:     platform === p ? '1px solid var(--border-strong)' : '1px solid var(--border-soft)',
               }}>
               {p}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex gap-2 flex-wrap">
+          {categories.map(c => (
+            <button key={c} onClick={() => setCategory(c)}
+              className="pro-interactive px-3 py-1 rounded-full text-[11px]"
+              style={{
+                background: category === c
+                  ? 'linear-gradient(90deg, rgba(16,185,129,0.25), rgba(59,130,246,0.22))'
+                  : 'rgba(4,12,30,0.45)',
+                color: category === c ? 'var(--text-primary)' : 'var(--text-secondary)',
+                border: category === c ? '1px solid rgba(45,212,191,0.55)' : '1px solid var(--border-soft)',
+              }}>
+              {c}
             </button>
           ))}
         </div>
