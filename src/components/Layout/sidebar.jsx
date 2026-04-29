@@ -5,6 +5,9 @@ const modules = [
   { id: 'ai',         icon: '✦', label: 'Chat con IA'    },
 ]
 
+import { auth } from '../../firebase' 
+import { signOut } from 'firebase/auth'
+
 function Sidebar({ active, onNavigate, isOpen, onClose }) {
   return (
     <>
