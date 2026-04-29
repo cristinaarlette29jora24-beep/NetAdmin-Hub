@@ -1,200 +1,146 @@
-import { useMemo, useState } from 'react'
+import { db, auth } from '../../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useMemo, useState, useEffect } from 'react';
 
+// 1. FUNCIONES MATEMÁTICAS (FUERA DE LA FUNCIÓN PRINCIPAL)
 function ipToInt(ip) {
-  return ip.split('.').reduce((acc, octet) => (acc << 8) + Number(octet), 0) >>> 0
+  return ip.split('.').reduce((acc, octet) => (acc << 8) + Number(octet), 0) >>> 0;
 }
 
 function intToIp(value) {
-  return [24, 16, 8, 0].map((shift) => (value >>> shift) & 255).join('.')
+  return [24, 16, 8, 0].map((shift) => (value >>> shift) & 255).join('.');
 }
 
 function isValidIp(ip) {
-  const parts = ip.trim().split('.')
-  if (parts.length !== 4) return false
+  const parts = ip.trim().split('.');
+  if (parts.length !== 4) return false;
   return parts.every((part) => {
-    if (part === '' || Number.isNaN(Number(part))) return false
-    const octet = Number(part)
-    return Number.isInteger(octet) && octet >= 0 && octet <= 255
-  })
+    const octet = Number(part);
+    return !isNaN(octet) && octet >= 0 && octet <= 255;
+  });
 }
 
 function normalizePrefix(maskInput) {
-  const trimmed = maskInput.trim()
-  if (trimmed.startsWith('/')) {
-    const value = Number(trimmed.slice(1))
-    return Number.isInteger(value) ? value : null
+  const trimmed = maskInput.trim();
+  if (trimmed.startsWith('/')) return Number(trimmed.slice(1));
+  if (/^\d+$/.test(trimmed)) return Number(trimmed);
+  if (!isValidIp(trimmed)) return null;
+  const maskInt = ipToInt(trimmed);
+  let prefix = 0;
+  for (let bit = 31; bit >= 0; bit--) {
+    if (((maskInt >>> bit) & 1) === 1) prefix++;
+    else break;
   }
-
-  if (/^\d+$/.test(trimmed)) {
-    return Number(trimmed)
-  }
-
-  if (!isValidIp(trimmed)) {
-    return null
-  }
-
-  const maskInt = ipToInt(trimmed)
-  let foundZero = false
-  let prefix = 0
-
-  for (let bit = 31; bit >= 0; bit -= 1) {
-    const isOne = ((maskInt >>> bit) & 1) === 1
-    if (isOne && foundZero) return null
-    if (!isOne) foundZero = true
-    if (isOne) prefix += 1
-  }
-
-  return prefix
+  return prefix;
 }
 
 function calculateSubnet(ip, prefix) {
-  const ipInt = ipToInt(ip)
-  const maskInt = prefix === 0 ? 0 : (0xffffffff << (32 - prefix)) >>> 0
-  const networkInt = (ipInt & maskInt) >>> 0
-  const broadcastInt = (networkInt | (~maskInt >>> 0)) >>> 0
-
-  const firstHostInt = prefix >= 31 ? networkInt : networkInt + 1
-  const lastHostInt = prefix >= 31 ? broadcastInt : broadcastInt - 1
-  const usableHosts = prefix >= 31 ? (prefix === 31 ? 2 : 1) : (2 ** (32 - prefix)) - 2
-
+  const ipInt = ipToInt(ip);
+  const maskInt = prefix === 0 ? 0 : (0xffffffff << (32 - prefix)) >>> 0;
+  const networkInt = (ipInt & maskInt) >>> 0;
+  const broadcastInt = (networkInt | (~maskInt >>> 0)) >>> 0;
   return {
     network: intToIp(networkInt),
     broadcast: intToIp(broadcastInt),
-    firstHost: intToIp(firstHostInt),
-    lastHost: intToIp(lastHostInt),
-    usableHosts,
     mask: intToIp(maskInt),
     prefix,
-  }
+  };
 }
 
 function ResultItem({ label, value }) {
   return (
-    <div
-      className="flex items-center justify-between rounded-lg px-4 py-3"
-      style={{ background: '#0a1628', border: '1px solid #1e3a5f' }}
-    >
-      <span className="text-sm" style={{ color: '#4a7090' }}>
-        {label}
-      </span>
-      <span className="text-sm font-mono font-semibold" style={{ color: '#60c0ff' }}>
-        {value}
-      </span>
+    <div className="flex justify-between p-3 rounded" style={{ background: '#0a1628', border: '1px solid #1e3a5f' }}>
+      <span style={{ color: '#4a7090' }}>{label}</span>
+      <span style={{ color: '#60c0ff' }} className="font-mono">{value}</span>
     </div>
-  )
+  );
 }
 
-function IPSubnetCalculator() {
-  const [ip, setIp] = useState('192.168.10.45')
-  const [mask, setMask] = useState('/24')
-  const [submitted, setSubmitted] = useState(false)
+// 2. COMPONENTE PRINCIPAL
+export default function IPSubnetCalculator() {
+  const [ip, setIp] = useState('192.168.10.45');
+  const [mask, setMask] = useState('/24');
+  const [submitted, setSubmitted] = useState(false);
 
   const validation = useMemo(() => {
-    if (!submitted) return { valid: true, error: '', prefix: null }
-    if (!isValidIp(ip)) {
-      return { valid: false, error: 'La IP no es válida. Usa formato como 192.168.1.10', prefix: null }
-    }
-
-    const parsedPrefix = normalizePrefix(mask)
-    if (parsedPrefix === null || parsedPrefix < 0 || parsedPrefix > 32) {
-      return {
-        valid: false,
-        error: 'La máscara no es válida. Usa /24, 24 o 255.255.255.0',
-        prefix: null,
-      }
-    }
-
-    return { valid: true, error: '', prefix: parsedPrefix }
-  }, [ip, mask, submitted])
+    if (!submitted) return { valid: true, prefix: null };
+    if (!isValidIp(ip)) return { valid: false, error: 'IP no válida' };
+    const p = normalizePrefix(mask);
+    if (p === null || p < 0 || p > 32) return { valid: false, error: 'Máscara no válida' };
+    return { valid: true, prefix: p };
+  }, [ip, mask, submitted]);
 
   const result = useMemo(() => {
-    if (!validation.valid || validation.prefix === null) return null
-    return calculateSubnet(ip.trim(), validation.prefix)
-  }, [ip, validation])
+    if (!validation.valid || validation.prefix === null) return null;
+    return calculateSubnet(ip, validation.prefix);
+  }, [ip, validation]);
 
-  const handleCalculate = (event) => {
-    event.preventDefault()
-    setSubmitted(true)
-  }
+  // GUARDADO EN FIREBASE
+  useEffect(() => {
+    const guardar = async () => {
+      if (submitted && result) {
+        try {
+          const user = auth.currentUser;
+          if (user) {
+            await addDoc(collection(db, "historial_calculos"), {
+              email: user.email,
+              ip,
+              red: `${result.network}/${result.prefix}`,
+              fecha: serverTimestamp()
+            });
+            console.log("¡Guardado OK!");
+          }
+        } catch (e) { console.error("Error al guardar:", e); }
+      }
+    };
+    guardar();
+  }, [result, submitted]);
 
   return (
-    <section className="mx-auto flex w-full max-w-3xl flex-col gap-5 fade-in-up">
-      <div>
-        <h1 className="text-2xl font-bold" style={{ color: '#60c0ff' }}>
-          Calculadora de Subredes (IP + Máscara)
-        </h1>
-        <p className="mt-1 text-sm" style={{ color: '#3a6080' }}>
-          Ingresa una IP y una máscara para calcular red, rango de hosts y broadcast.
-        </p>
-      </div>
-
-      <form
-        onSubmit={handleCalculate}
-        className="pro-card rounded-xl p-5"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2">
-            <span className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>
-              Dirección IP
-            </span>
-            <input
-              type="text"
-              value={ip}
-              onChange={(event) => setIp(event.target.value)}
-              placeholder="192.168.10.45"
-              className="rounded-lg px-4 py-3 text-sm outline-none"
-              style={{ background: '#0a1628', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
+    <div className="p-5 max-w-2xl mx-auto">
+      <h2 className="text-xl font-bold mb-4" style={{ color: '#60c0ff' }}>Calculadora de Subredes</h2>
+      
+      <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="grid gap-4">
+        <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>Dirección IP</label>
+            <input 
+              value={ip} 
+              onChange={(e) => { setIp(e.target.value); setSubmitted(false); }} 
+              className="p-3 rounded bg-[#0a1628] border border-[#1e3a5f] text-white outline-none"
+              placeholder="192.168.1.1"
             />
-          </label>
+        </div>
 
-          <label className="flex flex-col gap-2">
-            <span className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>
-              Máscara / Prefijo
-            </span>
-            <input
-              type="text"
-              value={mask}
-              onChange={(event) => setMask(event.target.value)}
+        <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-widest" style={{ color: '#3a6080' }}>Máscara / Prefijo</label>
+            <input 
+              value={mask} 
+              onChange={(e) => { setMask(e.target.value); setSubmitted(false); }} 
+              className="p-3 rounded bg-[#0a1628] border border-[#1e3a5f] text-white outline-none"
               placeholder="/24 o 255.255.255.0"
-              className="rounded-lg px-4 py-3 text-sm outline-none"
-              style={{ background: '#0a1628', border: '1px solid #1e3a5f', color: '#c0d8f0' }}
             />
-          </label>
         </div>
 
         {submitted && !validation.valid && (
-          <p
-            className="mt-4 rounded-lg px-3 py-2 text-sm"
-            style={{
-              background: 'rgba(255,60,40,0.1)',
-              color: '#ff6040',
-              border: '1px solid rgba(255,60,40,0.2)',
-            }}
-          >
-            {validation.error}
-          </p>
+          <p className="mt-2 text-sm" style={{ color: '#ff6040' }}>{validation.error}</p>
         )}
 
-        <button
-          type="submit"
-          className="mt-4 rounded-lg px-5 py-3 text-sm font-bold transition-all"
-          style={{ background: 'rgba(0,120,255,0.2)', color: '#60c0ff', border: '1px solid #0055cc' }}
+        <button 
+          type="submit" 
+          className="mt-4 w-full rounded-lg px-5 py-3 text-sm font-bold transition-all hover:opacity-90" 
+          style={{ background: '#2563eb', color: 'white' }}
         >
-          Calcular rango
+          CALCULAR Y GUARDAR EN NUBE
         </button>
       </form>
 
       {result && (
-        <div className="grid gap-3">
+        <div className="mt-8 grid gap-3 fade-in">
           <ResultItem label="Red (CIDR)" value={`${result.network}/${result.prefix}`} />
-          <ResultItem label="Máscara decimal" value={result.mask} />
-          <ResultItem label="Rango utilizable" value={`${result.firstHost} - ${result.lastHost}`} />
+          <ResultItem label="Máscara de subred" value={result.mask} />
           <ResultItem label="Broadcast" value={result.broadcast} />
-          <ResultItem label="Hosts utilizables" value={result.usableHosts.toLocaleString()} />
         </div>
       )}
-    </section>
-  )
+    </div>
+  );
 }
-
-export default IPSubnetCalculator
