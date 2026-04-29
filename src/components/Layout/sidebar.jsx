@@ -1,3 +1,7 @@
+import React from 'react'
+import { auth } from '../../firebase' 
+import { signOut } from 'firebase/auth'
+
 const modules = [
   { id: 'calculator', icon: '⊞', label: 'Calculadora IP' },
   { id: 'subnet',     icon: '⌗', label: 'Subred IP'       },
@@ -5,10 +9,13 @@ const modules = [
   { id: 'ai',         icon: '✦', label: 'Chat con IA'    },
 ]
 
-import { auth } from '../../firebase' 
-import { signOut } from 'firebase/auth'
-
 function Sidebar({ active, onNavigate, isOpen, onClose }) {
+  
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    signOut(auth).catch((error) => console.error("Error al salir:", error));
+  };
+
   return (
     <>
       {isOpen && (
@@ -52,8 +59,26 @@ function Sidebar({ active, onNavigate, isOpen, onClose }) {
           ))}
         </nav>
 
-        <div className="mt-auto p-4 text-xs text-center" style={{ color: 'var(--text-muted)' }}>
-          v1.0.0
+        {/* --- SECCIÓN DE CIERRE DE SESIÓN --- */}
+        <div className="mt-auto p-4 flex flex-col gap-4">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all"
+            style={{
+              background: 'rgba(255, 77, 77, 0.1)',
+              color: '#ff4d4d',
+              border: '1px solid rgba(255, 77, 77, 0.3)',
+              cursor: 'pointer'
+            }}
+            onMouseOver={(e) => e.target.style.background = 'rgba(255, 77, 77, 0.2)'}
+            onMouseOut={(e) => e.target.style.background = 'rgba(255, 77, 77, 0.1)'}
+          >
+            ✕ CERRAR SESIÓN
+          </button>
+
+          <div className="text-center text-[10px]" style={{ color: 'var(--text-muted)' }}>
+            v1.0.0
+          </div>
         </div>
       </aside>
     </>
