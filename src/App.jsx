@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react'
 import { auth } from './firebase' // <--- Importamos tu configuración de Firebase
 import { onAuthStateChanged } from 'firebase/auth' // <--- El "vigilante" de la sesión
 import Login from './components/Auth/Login' // <--- Importamos la pantalla de entrada
-/*
-import Sidebar from './components/Layout/Sidebar'
-import Topbar from './components/Layout/Topbar'
-*/
 
+import Sidebar from './components/Layout/SidebarNEW.jsx'
+import Topbar from './components/Layout/TopbarNEW.jsx'
 
 import SubnetCalc from './components/Calculator/SubnetCalc'
 import IPSubnetCalculator from './components/Calculator/IPSubnetCalculator'
