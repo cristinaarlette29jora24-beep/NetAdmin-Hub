@@ -4,8 +4,7 @@
 
 El frontend (y el backend con Express como Serverless Functions) está desplegado en **Vercel**.
 
-**URL del proyecto:** *(añade aquí la URL de Vercel una vez desplegado)*
-
+**URL del proyecto:** https://net-admin-dugzrjlcn-cristinaarlette29jora24-beeps-projects.vercel.app
 ---
 
 ## Proceso de despliegue del frontend
