@@ -6,7 +6,7 @@ Plataforma web para administradores de redes con calculadoras, comandos CLI y as
 [https://net-admin-dugzrjlcn-cristinaarlette29jora24-beeps-projects.vercel.app](https://net-admin-dugzrjlcn-cristinaarlette29jora24-beeps-projects.vercel.app)
 
 ## 📋 Tablero Trello
-[Añade aquí el enlace a tu tablero de Trello]
+https://trello.com/b/VddsHeEi/netadmin-hub
 
 ## 🛠️ Tecnologías
 - React + TypeScript + Tailwind CSS

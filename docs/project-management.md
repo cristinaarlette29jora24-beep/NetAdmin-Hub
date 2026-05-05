@@ -4,8 +4,7 @@
 
 Para organizar el desarrollo de NetAdmin-Hub se utilizó un tablero de Trello con metodología Kanban. El tablero permite visualizar el estado de cada tarea y moverla entre columnas según avanza el trabajo.
 
-**Enlace al tablero:** *(añade aquí el enlace a tu tablero de Trello)*
-
+**Enlace al tablero:** https://trello.com/b/VddsHeEi/netadmin-hub
 ---
 
 ## Estructura del tablero
