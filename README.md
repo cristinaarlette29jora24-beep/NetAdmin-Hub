@@ -1,36 +1,29 @@
 # NetAdmin Hub
 
-Panel web moderno para tareas de redes y soporte tecnico diario.
+Plataforma web para administradores de redes con calculadoras, comandos CLI y asistente IA.
 
-## Documentacion
+## 🚀 Demo en producción
+[https://net-admin-dugzrjlcn-cristinaarlette29jora24-beeps-projects.vercel.app](https://net-admin-dugzrjlcn-cristinaarlette29jora24-beeps-projects.vercel.app)
 
-- Guia rapida para usuario final: `README-USUARIO.md`
-- Documentacion tecnica del proyecto: `README-TECNICO.md`
+## 📋 Tablero Trello
+[Añade aquí el enlace a tu tablero de Trello]
 
-## Inicio rapido
+## 🛠️ Tecnologías
+- React + TypeScript + Tailwind CSS
+- Firebase Auth + Firestore
+- Node.js + Express (backend)
+- Vercel (despliegue)
+
+## 📁 Documentación
+- Guía de usuario: `README-USUARIO.md`
+- Documentación técnica: `README-TECNICO.md`
+- Documentación completa: carpeta `docs/`
+
+## Inicio rápido
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre `http://localhost:5173`.
-
-## Despliegue
-
-### Vercel (recomendado)
-
-```bash
-npx vercel
-npx vercel --prod
-```
-
-Tambien puedes desplegar importando el repositorio desde el panel de Vercel.
-
-### Dominio personalizado
-
-Una vez desplegado:
-
-1. Ve a `Project > Settings > Domains` en Vercel.
-2. Agrega tu dominio.
-3. Configura los DNS en tu proveedor.
+Abre `http://localhost:5173`
