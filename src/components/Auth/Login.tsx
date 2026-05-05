@@ -6,6 +6,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isRegistering, setIsRegistering] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -26,7 +27,7 @@ const Login: React.FC = () => {
       <div style={styles.card}>
         <div style={styles.header}>
           <div style={styles.logoContainer}>
-            <span style={styles.logoIcon}>🔐</span>
+            <span>🔐</span>
           </div>
           <h1 style={styles.title}>
             NETADMIN <span style={{ color: '#4ecca3' }}>HUB</span>
@@ -50,13 +51,34 @@ const Login: React.FC = () => {
 
           <div style={styles.inputGroup}>
             <label style={styles.label}>PASSWORD</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              style={styles.input}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-              required
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                style={{ ...styles.input, paddingRight: '45px' }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  padding: 0,
+                  lineHeight: 1,
+                }}
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
           </div>
 
           <button type="submit" style={styles.button}>
@@ -100,7 +122,6 @@ const styles: Record<string, React.CSSProperties> = {
   },
   header: { marginBottom: '30px' },
   logoContainer: { fontSize: '40px', marginBottom: '10px' },
-  logoIcon: {},
   title: {
     color: '#ffffff',
     fontSize: '24px',
